@@ -22,6 +22,7 @@
 
 - [Spring Boot](https://spring.io/projects/spring-boot)
 - [Project Lombok](https://projectlombok.org/)
+- [Maven](https://maven.apache.org/)
 
 ---
 
