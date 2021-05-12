@@ -7,6 +7,7 @@
 ### Table of Contents
 - [Description](#description)
 - [Dependencies](#spring-boot)
+- [SQL Query](#SQL-query)
 - [Author Info](#author-info)
 
 ---
@@ -35,6 +36,11 @@
 - Spring Web
 - Spring Data JPA
 - PostgreSQL Driver
+
+---
+# SQL Query
+
+[hmrs_script.sql](https://github.com/Dogukanyllmaz/recapDemo-Hmrs/blob/main/hmrs_script.sql)<br>
 
 ---
 
