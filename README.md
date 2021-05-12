@@ -14,8 +14,8 @@
 ## Description
 
 - Human resources (HR) is a division of labor tasked with finding, screening, recruiting and training job applicants, as well as managing programs that benefit employees. In this project, we are designing a website to facilitate this.
-- I keep working on it.
 - In this project, we used postgreSql for the database.
+- I keep working on it.
 
 
 #### Technologies
