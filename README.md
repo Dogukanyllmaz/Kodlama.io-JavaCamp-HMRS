@@ -1,4 +1,4 @@
-<h1 align="center">Human resources (HR) Project</h1>
+<h1 align="center">Human Resources (HR) Project</h1>
 
 <p align="center">
     <img width="100%" src="./readme/hmrsimage.jpg">
