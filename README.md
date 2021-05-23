@@ -14,6 +14,7 @@
 
 ## Last Updates
 
+- Spring fox swagger added.
 - We have added some entities (candidate, employer, user).
 - We wrote the crud operations of the entities we added.
 - We wrote the controllers of the operations we wrote.
