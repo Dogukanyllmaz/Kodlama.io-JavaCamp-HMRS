@@ -12,11 +12,21 @@
 
 ---
 
+## Last Updates
+
+- We have added some entities (candidate, employer, user).
+- We wrote the crud operations of the entities we added.
+- We wrote the controllers of the operations we wrote.
+- Some refactoring has been done.
+
+---
+
 ## Description
 
 - Human resources (HR) is a division of labor tasked with finding, screening, recruiting and training job applicants, as well as managing programs that benefit employees. In this project, we are designing a website to facilitate this.
 - In this project, we used postgreSql for the database.
 - I keep working on it.
+- ⭐⭐⭐ If you like it, don't forget to give stars. ⭐⭐⭐
 
 
 #### Technologies
