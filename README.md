@@ -14,7 +14,7 @@
 
 ## Last Updates
 
-- Spring fox swagger added.
+- Swagger 2 added.
 - We have added some entities (candidate, employer, user).
 - We wrote the crud operations of the entities we added.
 - We wrote the controllers of the operations we wrote.
@@ -35,6 +35,7 @@
 - [Spring Boot](https://spring.io/projects/spring-boot)
 - [Project Lombok](https://projectlombok.org/)
 - [Maven](https://maven.apache.org/)
+- [Swagger 2](https://www.baeldung.com/swagger-2-documentation-for-spring-rest-api)
 
 ---
 
