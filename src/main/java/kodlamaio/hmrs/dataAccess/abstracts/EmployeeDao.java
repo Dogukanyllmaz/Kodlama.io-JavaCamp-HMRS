@@ -1,14 +1,15 @@
 package kodlamaio.hmrs.dataAccess.abstracts;
 
 import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import kodlamaio.hmrs.entities.concretes.Employer;
+import kodlamaio.hmrs.entities.concretes.Employee;
 import kodlamaio.hmrs.entities.concretes.User;
 
-public interface EmployerDao extends JpaRepository<Employer, Integer>{
+public interface EmployeeDao extends JpaRepository<Employee, Integer>{
 	
-	List<Employer> findAllByTaxNumber(String taxNumber);
+	List<Employee> findAllByNationalityId(String nationalityId);
 	List<User> findAllByEmail(String email);
 
 }

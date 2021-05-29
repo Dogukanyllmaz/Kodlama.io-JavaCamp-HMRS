@@ -1,6 +1,6 @@
 package kodlamaio.hmrs.entities.concretes;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,25 +12,23 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name= "candidates")
-@Entity
 @EqualsAndHashCode(callSuper=false)
-public class Candidate extends User{
+@Table(name="system_employee")
+public class SystemEmployee extends User{
 
-	
-	@Column(name = "first_name")
+	@Column(name="first_name", nullable = false)
 	private String firstName;
 	
-	@Column(name = "last_name")
+	@Column(name="last_name", nullable = false)
 	private String lastName;
 	
-	@Column(name = "identity_number")
-	private String identityNumber;
+	@Column(name="date_of_start", nullable = false)
+	private LocalDate dateOfStart;
 	
-	@Column(name = "birth_date")
-	private Date birthDate;
-	
+	@Column(name="phone_number", nullable = false)
+	private String phoneNumber;
 	
 }
