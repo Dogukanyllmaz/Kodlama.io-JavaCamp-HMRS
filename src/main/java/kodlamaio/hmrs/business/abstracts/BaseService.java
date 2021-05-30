@@ -10,7 +10,7 @@ public interface BaseService<T> {
 
 	DataResult<List<T>> getAll();
 	Result add(T entity);
-	Result delete(int id);
+	Result delete(T entity);
 	Result update(T entity);
 	
 }
