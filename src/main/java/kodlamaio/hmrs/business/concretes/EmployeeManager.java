@@ -62,7 +62,7 @@ public class EmployeeManager implements EmployeeService{
 		
 		User user = this.userService.add(entity);
 		this.employeeDao.save(entity);
-		this.emailVerificationService.generateCode(new EmailVertification(), user.getId());
+		this.emailVerificationService.generateCode(new EmailVertification(), user.getUserId());
 		return new SuccessResult("Kayıt başarılı. Lütfefn emailinizi kontrol ediniz.");
 		
 	}

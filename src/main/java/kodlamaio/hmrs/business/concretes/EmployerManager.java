@@ -59,7 +59,7 @@ public class EmployerManager implements EmployerService{
 			return result;
 		}
 		User user = this.userService.add(entity);
-		this.emailVertificationService.generateCode(new EmailVertification(), user.getId());
+		this.emailVertificationService.generateCode(new EmailVertification(), user.getUserId());
 		this.employerDao.save(entity);
 		return new SuccessResult("Kayıt olundu. Lütfen emailinizi kontrol ediniz.");
 		
