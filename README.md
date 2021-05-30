@@ -54,6 +54,12 @@
 
 [hmrs_script.sql](https://github.com/Dogukanyllmaz/recapDemo-Hmrs/blob/main/hmrs_script.sql)<br>
 
+#### Erd Diagram
+
+<p align="center">
+    <img width="100%" src="hmrsErd.png">
+</p>
+
 ---
 
 ## Author Info
