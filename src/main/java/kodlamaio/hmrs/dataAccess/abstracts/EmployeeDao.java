@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import kodlamaio.hmrs.core.entities.User;
 import kodlamaio.hmrs.entities.concretes.Employee;
-import kodlamaio.hmrs.entities.concretes.User;
 
 public interface EmployeeDao extends JpaRepository<Employee, Integer>{
 	

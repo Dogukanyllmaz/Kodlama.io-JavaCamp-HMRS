@@ -1,16 +1,17 @@
 package kodlamaio.hmrs.business.concretes;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kodlamaio.hmrs.business.abstracts.UserService;
+import kodlamaio.hmrs.core.dataAccess.UserDao;
+import kodlamaio.hmrs.core.entities.User;
 import kodlamaio.hmrs.core.utilities.results.DataResult;
+import kodlamaio.hmrs.core.utilities.results.Result;
 import kodlamaio.hmrs.core.utilities.results.SuccessDataResult;
-import kodlamaio.hmrs.dataAccess.abstracts.UserDao;
-import kodlamaio.hmrs.entities.concretes.User;
+import kodlamaio.hmrs.core.utilities.results.SuccessResult;
 
 @Service
 public class UserManager implements UserService{
@@ -26,20 +27,33 @@ public class UserManager implements UserService{
 	public DataResult<List<User>> getAll() {
 		return new SuccessDataResult<List<User>>(this.userDao.findAll(), "Listelendi");
 	}
+	
+	@Override
+	public DataResult<User> findByEmail(String email) {
+		return new SuccessDataResult<User>(this.userDao.findByEmail(email), "Emaile göre kullanıcı getirildi");
+	}
+
 
 	@Override
-	public DataResult<Optional<User>> getById(int id) {
-		return new SuccessDataResult<Optional<User>>(this.userDao.findById(id),"Listelendi");
+	public Result add(User user) {
+		this.userDao.save(user);
+		return new SuccessResult("Kullanıcı eklendi");
 	}
 
 	@Override
-	public User add(User user) {
-		return this.userDao.save(user);
+	public Result update(User user) {
+		this.userDao.save(user);
+		return new SuccessResult("Kullanıcı güncellendi");
 	}
 
 	@Override
-	public User update(User user) {
-		return this.userDao.save(user);
+	public Result delete(User entity) {
+		this.userDao.delete(entity);
+		return new SuccessResult("Kullanıcı silindi");
 	}
+
+	
+
+	
 
 }

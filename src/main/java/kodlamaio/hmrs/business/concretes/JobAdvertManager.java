@@ -71,7 +71,12 @@ public class JobAdvertManager implements JobAdvertService{
 	public DataResult<List<JobAdvert>> getByEmployer_UserId(int userId) {
 		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getByEmployer_UserId(userId),"Firmanın İlanları Listelendi");
 	}
-	
+	/*
+	@Override
+	public DataResult<List<JobAdvert>> getByPosition_Id(int positionId) {
+		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getByPosition_Id(positionId));
+	}
+	*/
 	
 	//**********************Business Rules***************************
 	private Result checkIfInfoIsNull(JobAdvert jobAdvert) {
@@ -81,6 +86,8 @@ public class JobAdvertManager implements JobAdvertService{
 			return new SuccessResult();
 		}
 	}
+
+	
 
 	
 }

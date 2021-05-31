@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+
+import kodlamaio.hmrs.core.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,6 +19,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name = "employees")
 @EqualsAndHashCode(callSuper = false)
+
 public class Employee extends User{
 	
 	@Column(name = "first_name", nullable = false)

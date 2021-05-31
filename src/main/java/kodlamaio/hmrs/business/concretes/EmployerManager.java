@@ -19,16 +19,14 @@ import kodlamaio.hmrs.core.utilities.results.Result;
 import kodlamaio.hmrs.core.utilities.results.SuccessDataResult;
 import kodlamaio.hmrs.core.utilities.results.SuccessResult;
 import kodlamaio.hmrs.dataAccess.abstracts.EmployerDao;
-import kodlamaio.hmrs.entities.concretes.EmailVertification;
 import kodlamaio.hmrs.entities.concretes.Employer;
-import kodlamaio.hmrs.entities.concretes.User;
 
 @Service
 public class EmployerManager implements EmployerService{
 
 	private EmployerDao employerDao;
 	private UserService userService;
-	private EmailVertificationService emailVertificationService;
+	//private EmailVertificationService emailVertificationService;
 	
 	@Autowired
 	public EmployerManager(EmployerDao employerDao, UserService userService,
@@ -36,7 +34,7 @@ public class EmployerManager implements EmployerService{
 		super();
 		this.employerDao = employerDao;
 		this.userService = userService;
-		this.emailVertificationService = emailVertificationService;
+		//this.emailVertificationService = emailVertificationService;
 	}
 	
 	
@@ -58,8 +56,8 @@ public class EmployerManager implements EmployerService{
 		if (result != null) {
 			return result;
 		}
-		User user = this.userService.add(entity);
-		this.emailVertificationService.generateCode(new EmailVertification(), user.getUserId());
+		this.userService.add(entity);
+		//this.emailVertificationService.generateCode(new EmailVertification(), user.getUserId());
 		this.employerDao.save(entity);
 		return new SuccessResult("Kayıt olundu. Lütfen emailinizi kontrol ediniz.");
 		

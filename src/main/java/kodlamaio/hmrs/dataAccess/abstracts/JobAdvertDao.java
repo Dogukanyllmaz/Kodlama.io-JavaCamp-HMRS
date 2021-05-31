@@ -3,7 +3,6 @@ package kodlamaio.hmrs.dataAccess.abstracts;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-
 import kodlamaio.hmrs.entities.concretes.JobAdvert;
 
 public interface JobAdvertDao extends JpaRepository<JobAdvert, Integer>{
@@ -12,5 +11,8 @@ public interface JobAdvertDao extends JpaRepository<JobAdvert, Integer>{
 	List<JobAdvert> getByActivityStatusIsTrueOrderByAdvertDateAsc();
 	List<JobAdvert> getByActivityStatusIsTrueOrderByAdvertDateDesc();
 	List<JobAdvert> getByEmployer_UserId(int userId);
+	
+	//Querysi tamamlanmadı denemelere devam
+	//List<JobAdvert> getByPosition_Id(int positionId);
 
 }

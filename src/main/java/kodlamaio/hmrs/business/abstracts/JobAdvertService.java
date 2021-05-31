@@ -15,6 +15,7 @@ public interface JobAdvertService {
 	DataResult<List<JobAdvert>> getByActivityStatusIsTrueOrderByAdvertDateAsc();
 	DataResult<List<JobAdvert>> getByActivityStatusIsTrueOrderByAdvertDateDesc();
 	DataResult<List<JobAdvert>> getByEmployer_UserId(int userId);
+	//DataResult<List<JobAdvert>> getByPosition_Id(int positionId);
 	
 	Result add(JobAdvert jobAdvert);
 	Result closeAdvert(JobAdvert jobAdvert);

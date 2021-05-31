@@ -7,7 +7,6 @@ import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import kodlamaio.hmrs.business.abstracts.EmailVertificationService;
 import kodlamaio.hmrs.business.abstracts.EmployeeService;
 import kodlamaio.hmrs.business.abstracts.UserService;
@@ -19,16 +18,15 @@ import kodlamaio.hmrs.core.utilities.results.Result;
 import kodlamaio.hmrs.core.utilities.results.SuccessDataResult;
 import kodlamaio.hmrs.core.utilities.results.SuccessResult;
 import kodlamaio.hmrs.dataAccess.abstracts.EmployeeDao;
-import kodlamaio.hmrs.entities.concretes.EmailVertification;
+
 import kodlamaio.hmrs.entities.concretes.Employee;
-import kodlamaio.hmrs.entities.concretes.User;
 
 @Service
 public class EmployeeManager implements EmployeeService{
 
 	private EmployeeDao employeeDao;
 	private UserService userService;
-	private EmailVertificationService emailVerificationService;
+	//private EmailVertificationService emailVerificationService;
 
 	@Autowired
 	public EmployeeManager(
@@ -38,7 +36,7 @@ public class EmployeeManager implements EmployeeService{
 		super();
 		this.employeeDao = employeeDao;
 		this.userService = userService;
-		this.emailVerificationService = emailVerificationService; 
+		//this.emailVerificationService = emailVerificationService; 
 	}
 
 	@Override
@@ -60,9 +58,9 @@ public class EmployeeManager implements EmployeeService{
 			return result;
 		}
 		
-		User user = this.userService.add(entity);
+		this.userService.add(entity);
 		this.employeeDao.save(entity);
-		this.emailVerificationService.generateCode(new EmailVertification(), user.getUserId());
+		//this.emailVerificationService.generateCode(new EmailVertification(),user.UserId());
 		return new SuccessResult("Kayıt başarılı. Lütfefn emailinizi kontrol ediniz.");
 		
 	}
