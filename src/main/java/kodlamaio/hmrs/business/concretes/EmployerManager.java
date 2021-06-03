@@ -6,6 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kodlamaio.hmrs.business.abstracts.EmployerService;
+<<<<<<< HEAD
+=======
+import kodlamaio.hmrs.business.abstracts.UserService;
+import kodlamaio.hmrs.core.utilities.tools.BusinessRules;
+import kodlamaio.hmrs.core.business.validation.TaxNumberValidation;
+>>>>>>> b9e69758d6563fe3f9ed95825d2ad120553f39ab
 import kodlamaio.hmrs.core.utilities.results.DataResult;
 import kodlamaio.hmrs.core.utilities.results.ErrorDataResult;
 import kodlamaio.hmrs.core.utilities.results.ErrorResult;
@@ -52,6 +58,7 @@ public class EmployerManager implements EmployerService{
 	}
 
 	@Override
+<<<<<<< HEAD
 	public Result add(Employer employer) {
 		if (!this.employerEmailRegexValidatorService.isValidEmail(employer.getEmail(),
 				employer.getWebSite())) {
@@ -66,6 +73,11 @@ public class EmployerManager implements EmployerService{
 			this.employerDao.save(employer);
 			return new SuccessResult("Employer added successfully.");
 		}
+=======
+	public Result delete(int id) {
+		this.employerDao.deleteById(id);
+		return new SuccessResult("Silindi");
+>>>>>>> b9e69758d6563fe3f9ed95825d2ad120553f39ab
 	}
 
 	@Override

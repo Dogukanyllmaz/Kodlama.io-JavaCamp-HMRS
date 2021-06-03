@@ -6,6 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kodlamaio.hmrs.business.abstracts.PositionService;
+<<<<<<< HEAD
+=======
+import kodlamaio.hmrs.core.utilities.tools.BusinessRules;
+>>>>>>> b9e69758d6563fe3f9ed95825d2ad120553f39ab
 import kodlamaio.hmrs.core.utilities.results.DataResult;
 import kodlamaio.hmrs.core.utilities.results.ErrorDataResult;
 import kodlamaio.hmrs.core.utilities.results.ErrorResult;
@@ -41,6 +45,7 @@ public class PositionManager implements PositionService{
 	}
 
 	@Override
+<<<<<<< HEAD
 	public Result add(Position position) {
 		if (this.positionDao.existsEmployeePositionByPositionNameIgnoreCase(position.getPositionName())) {
 			return new ErrorResult("There's a employee position with that name.");
@@ -49,6 +54,11 @@ public class PositionManager implements PositionService{
 			return new SuccessResult("Employee position added successfully.");
 		}
 		
+=======
+	public Result delete(int id) {
+		this.positionDao.deleteById(id);
+		return new SuccessResult("Posizyon Silindi");
+>>>>>>> b9e69758d6563fe3f9ed95825d2ad120553f39ab
 	}
 
 	@Override

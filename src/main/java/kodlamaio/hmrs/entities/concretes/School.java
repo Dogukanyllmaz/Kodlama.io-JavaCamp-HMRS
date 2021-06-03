@@ -1,5 +1,6 @@
 package kodlamaio.hmrs.entities.concretes;
 
+<<<<<<< HEAD
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -14,10 +15,15 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 
+=======
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+>>>>>>> b9e69758d6563fe3f9ed95825d2ad120553f39ab
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+<<<<<<< HEAD
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -63,3 +69,30 @@ public class School {
 	}
 
 }
+=======
+import javax.persistence.*;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "schools")
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer","handler","cv"})
+public class School {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
+
+    @Column(name = "school_name")
+    private String schoolName;
+
+    @Column(name = "graduation_year")
+    private String graduationYear;
+
+    @ManyToOne()
+    @JoinColumn(name = "cv_id")
+    private Cv cv;
+
+}
+>>>>>>> b9e69758d6563fe3f9ed95825d2ad120553f39ab

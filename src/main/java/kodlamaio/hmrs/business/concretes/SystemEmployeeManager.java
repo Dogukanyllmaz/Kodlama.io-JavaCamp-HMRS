@@ -6,6 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kodlamaio.hmrs.business.abstracts.SystemEmployeeService;
+<<<<<<< HEAD
+=======
+import kodlamaio.hmrs.business.abstracts.UserService;
+import kodlamaio.hmrs.core.utilities.tools.BusinessRules;
+>>>>>>> b9e69758d6563fe3f9ed95825d2ad120553f39ab
 import kodlamaio.hmrs.core.utilities.results.DataResult;
 import kodlamaio.hmrs.core.utilities.results.ErrorDataResult;
 import kodlamaio.hmrs.core.utilities.results.ErrorResult;
@@ -40,9 +45,15 @@ public class SystemEmployeeManager implements SystemEmployeeService {
 	}
 
 	@Override
+<<<<<<< HEAD
 	public Result add(SystemEmployee employeePosition) {
 		this.systemEmployeeDao.save(employeePosition);
 		return new SuccessResult("System employee added successfully.");
+=======
+	public Result delete(int id) {
+		this.systemEmployeeDao.deleteById(id);
+		return new SuccessResult("Çalışan silindi(system)");
+>>>>>>> b9e69758d6563fe3f9ed95825d2ad120553f39ab
 	}
 
 	@Override
