@@ -15,9 +15,7 @@ import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 
 
@@ -27,14 +25,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
-@Getter
-@Setter
 public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private int userId;
+	private int id;
 	
 	@Column(name = "email", nullable = false , unique = true)
 	@Email
@@ -46,5 +42,10 @@ public class User {
 	@NotBlank
 	@NotNull
 	private String password;
+	
+	public User(String email, String password) {
+		this.email = email;
+		this.password = password;
+	}
 	
 }

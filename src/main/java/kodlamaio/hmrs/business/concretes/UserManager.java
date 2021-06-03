@@ -47,8 +47,8 @@ public class UserManager implements UserService{
 	}
 
 	@Override
-	public Result delete(User entity) {
-		this.userDao.delete(entity);
+	public Result delete(int id) {
+		this.userDao.deleteById(id);
 		return new SuccessResult("Kullanıcı silindi");
 	}
 

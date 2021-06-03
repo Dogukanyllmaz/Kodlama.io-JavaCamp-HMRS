@@ -5,7 +5,9 @@ import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 
 import kodlamaio.hmrs.core.entities.User;
 import lombok.AllArgsConstructor;
@@ -22,15 +24,52 @@ import lombok.NoArgsConstructor;
 public class SystemEmployee extends User{
 
 	@Column(name="first_name", nullable = false)
+	@NotNull
+	@NotBlank
 	private String firstName;
 	
 	@Column(name="last_name", nullable = false)
+	@NotNull
+	@NotBlank
 	private String lastName;
 	
-	@Column(name="date_of_start", nullable = false)
-	private LocalDate dateOfStart;
+	@Column(name="date_of_birth", nullable = false)
+	@NotNull
+	@NotBlank
+	@Past
+	private LocalDate dateOfBirth;
 	
-	@Column(name="phone_number", nullable = false)
-	private String phoneNumber;
+	@Column(name="nationality_id", nullable = false)
+	@NotNull
+	@NotBlank
+	private String nationalityId;
+	
+	@Column(name = "gender", nullable = false)
+	@NotNull
+	@NotBlank
+	private String gender;
+
+	public SystemEmployee(int userId, String email, String password, String firstName, 
+			String lastName, LocalDate dateOfBirth, String nationalityId, String gender) {
+		super(userId, email, password);
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.dateOfBirth = dateOfBirth;
+		this.nationalityId = nationalityId;
+		this.gender = gender;
+	}
+	
+	public SystemEmployee(String email, String password, String firstName, 
+			String lastName, LocalDate dateOfBirth, String nationalityId, String gender) {
+		super(email, password);
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.dateOfBirth = dateOfBirth;
+		this.nationalityId = nationalityId;
+		this.gender = gender;
+	}
+	
+	
+	
 	
 }

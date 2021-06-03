@@ -1,14 +1,13 @@
 package kodlamaio.hmrs.business.concretes;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kodlamaio.hmrs.business.abstracts.PositionService;
-import kodlamaio.hmrs.core.business.BusinessRules;
 import kodlamaio.hmrs.core.utilities.results.DataResult;
+import kodlamaio.hmrs.core.utilities.results.ErrorDataResult;
 import kodlamaio.hmrs.core.utilities.results.ErrorResult;
 import kodlamaio.hmrs.core.utilities.results.Result;
 import kodlamaio.hmrs.core.utilities.results.SuccessDataResult;
@@ -33,50 +32,41 @@ public class PositionManager implements PositionService{
 	}
 
 	@Override
-	public Result add(Position entity) {
-		var result = BusinessRules.run(
-				checkIfInfoIsNull(entity),
-				CheckIfThePositionName(entity)
-				);
-		if (result != null) {
-			return result;
-		}
-		this.positionDao.save(entity);
-		return new SuccessResult("Pozisyon eklendi");
-	}
-
-	@Override
-	public Result delete(Position entity) {
-		this.positionDao.delete(entity);
-		return new SuccessResult("Posizyon Silindi");
-	}
-
-	@Override
-	public Result update(Position entity) {
-		this.positionDao.save(entity);
-		return new SuccessResult("Pozisyon güncellendi");
-	}
-
-	@Override
-	public DataResult<Optional<Position>> getById(int id) {
-		return new SuccessDataResult <Optional<Position>>(this.positionDao.findById(id),"Listelendi");
-	}
-
-	//*******************Business Rules*************************
-	
-	private Result checkIfInfoIsNull(Position position) {
-		if (position.getPositionName().isBlank()) {
-			return new ErrorResult("Lütfen tüm alanları doldurun");
+	public DataResult<Position> getById(int id) {
+		if (this.positionDao.findById(id).orElse(null) != null ) {
+			return new SuccessDataResult<Position>(this.positionDao.findById(id).get(),"Id'ye göre getirildi");
 		} else {
-			return new SuccessResult();
+			return new ErrorDataResult<Position>("The specified employee position is not available.");
 		}
 	}
-	
-	private Result CheckIfThePositionName(Position position) {
-		if(positionDao.findAllByPositionName(position.getPositionName()).stream().count() != 0) {
-			return new ErrorResult("'" + position.getPositionName() + "'" +" Bu departman daha önce eklenmiş.");
+
+	@Override
+	public Result add(Position position) {
+		if (this.positionDao.existsEmployeePositionByPositionNameIgnoreCase(position.getPositionName())) {
+			return new ErrorResult("There's a employee position with that name.");
+		} else {
+			this.positionDao.save(position);
+			return new SuccessResult("Employee position added successfully.");
 		}
-		return new SuccessResult();
+		
 	}
+
+	@Override
+	public Result delete(int id) {
+		this.positionDao.deleteById(id);
+		return new SuccessResult("Employee position deleted successfully.");
+	}
+
+	@Override
+	public Result update(Position position) {
+		this.positionDao.save(position);
+		return new SuccessResult("Employee position updated successfully.");
+	}
+
+	@Override
+	public boolean existsEmployeePositionByPositionName(String positionName) {
+		return this.positionDao.existsEmployeePositionByPositionNameIgnoreCase(positionName);
+	}
+
 	
 }

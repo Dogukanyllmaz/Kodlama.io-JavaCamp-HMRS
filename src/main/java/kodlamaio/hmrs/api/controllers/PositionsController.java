@@ -27,12 +27,12 @@ public class PositionsController {
 		this.positionService = positionService;
 	}
 	
-	@GetMapping("getall")
+	@GetMapping("getall-position-title")
 	public DataResult<List<Position>> getAll(){
 		return this.positionService.getAll();
 	}
 	
-	@PostMapping("add")
+	@PostMapping("add-position-title")
 	public Result add(@RequestBody Position position) {
 		return this.positionService.add(position);
 	}

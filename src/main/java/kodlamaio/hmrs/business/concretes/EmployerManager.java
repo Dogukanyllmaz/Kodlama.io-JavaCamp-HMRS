@@ -1,23 +1,20 @@
 package kodlamaio.hmrs.business.concretes;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kodlamaio.hmrs.business.abstracts.EmailVertificationService;
 import kodlamaio.hmrs.business.abstracts.EmployerService;
-import kodlamaio.hmrs.business.abstracts.UserService;
-import kodlamaio.hmrs.core.business.BusinessRules;
-import kodlamaio.hmrs.core.business.validation.TaxNumberValidation;
 import kodlamaio.hmrs.core.utilities.results.DataResult;
+import kodlamaio.hmrs.core.utilities.results.ErrorDataResult;
 import kodlamaio.hmrs.core.utilities.results.ErrorResult;
 import kodlamaio.hmrs.core.utilities.results.Result;
 import kodlamaio.hmrs.core.utilities.results.SuccessDataResult;
 import kodlamaio.hmrs.core.utilities.results.SuccessResult;
+import kodlamaio.hmrs.core.validators.emailRegex.abstracts.EmployerEmailRegexValidatorService;
+import kodlamaio.hmrs.core.validators.emailVerify.abstracts.EmployerEmailVerifyService;
+import kodlamaio.hmrs.core.validators.systemEmployeeVerify.abstracts.EmployerSystemEmployeeVerifyService;
 import kodlamaio.hmrs.dataAccess.abstracts.EmployerDao;
 import kodlamaio.hmrs.entities.concretes.Employer;
 
@@ -25,119 +22,67 @@ import kodlamaio.hmrs.entities.concretes.Employer;
 public class EmployerManager implements EmployerService{
 
 	private EmployerDao employerDao;
-	private UserService userService;
-	//private EmailVertificationService emailVertificationService;
-	
+	private EmployerEmailRegexValidatorService employerEmailRegexValidatorService;
+	private EmployerEmailVerifyService employerEmailVerifyService;
+	private EmployerSystemEmployeeVerifyService employerSystemEmployeeVerifyService;
+
 	@Autowired
-	public EmployerManager(EmployerDao employerDao, UserService userService,
-			EmailVertificationService emailVertificationService) {
-		super();
+	public EmployerManager(EmployerDao employerDao,
+			EmployerEmailRegexValidatorService employerEmailRegexValidatorService, 
+			EmployerEmailVerifyService employerEmailVerifyService, 
+			EmployerSystemEmployeeVerifyService employerSystemEmployeeVerifyService) {
 		this.employerDao = employerDao;
-		this.userService = userService;
-		//this.emailVertificationService = emailVertificationService;
+		this.employerEmailRegexValidatorService = employerEmailRegexValidatorService;
+		this.employerEmailVerifyService = employerEmailVerifyService;
+		this.employerSystemEmployeeVerifyService = employerSystemEmployeeVerifyService;
 	}
-	
-	
+
 	@Override
 	public DataResult<List<Employer>> getAll() {
 		return new SuccessDataResult<List<Employer>>(this.employerDao.findAll(),"Listelendi");
 	}
-	
+
 	@Override
-	public Result add(Employer entity) {
-		var result = BusinessRules.run(
-				checkInfoIsNull(entity),
-				CheckIfTheEmailIsRegistered(entity),
-				isRealEmail(entity),
-				CheckIfTheTaxNumberIsRegistered(entity),
-				NationalityIdValidation(entity)
-				);
-		
-		if (result != null) {
-			return result;
+	public DataResult<Employer> getById(int id) {
+		if (this.employerDao.findById(id).orElse(null) != null) {
+			return new SuccessDataResult<Employer>(this.employerDao.findById(id).get(),"Getirildi");
+		} else {
+			return new ErrorDataResult<Employer>("The specified employer is not available.");
 		}
-		this.userService.add(entity);
-		//this.emailVertificationService.generateCode(new EmailVertification(), user.getUserId());
-		this.employerDao.save(entity);
-		return new SuccessResult("Kayıt olundu. Lütfen emailinizi kontrol ediniz.");
-		
-				
 	}
-	
+
 	@Override
-	public Result delete(Employer entity) {
-		this.employerDao.delete(entity);
-		return new SuccessResult("Silindi");
+	public Result add(Employer employer) {
+		if (!this.employerEmailRegexValidatorService.isValidEmail(employer.getEmail(),
+				employer.getWebSite())) {
+			return new ErrorResult("Email must have the same domain as the web site.");
+		} else if (this.existsEmployerByEmail(employer.getEmail())) {
+			return new ErrorResult("There is an employer record with this email.");
+		} else if (!this.employerEmailVerifyService.hasVerifyEmail(employer.getEmail())) {
+			return new ErrorResult("Email not verified!");
+		} else if (!this.employerSystemEmployeeVerifyService.hasVerifyBySystemEmployee(employer)) {
+			return new ErrorResult("The employer has not been verified by the system!");
+		} else {
+			this.employerDao.save(employer);
+			return new SuccessResult("Employer added successfully.");
+		}
 	}
-	
+
 	@Override
-	public Result update(Employer entity) {
-		this.employerDao.save(entity);
-		return new SuccessResult("Güncellendi");
+	public Result delete(int id) {
+		this.employerDao.deleteById(id);
+		return new SuccessResult("Employer deleted successfully.");
 	}
-	
+
 	@Override
-	public DataResult<Optional<Employer>> getByUserId(int id) {
-		return new SuccessDataResult<Optional<Employer>>(this.employerDao.findById(id),"Listelendi");
+	public Result update(Employer employer) {
+		this.employerDao.save(employer);
+		return new SuccessResult("Employer updated successfully.");
 	}
-	
-	//********************Business Rules****************************
-	
-	
-	//Free space control.
-	private Result checkInfoIsNull(Employer employer) {
-		if (employer.getEmail().isBlank() || 
-				employer.getCompanyName().isBlank() || 
-				employer.getPhoneNumber().isBlank() ||
-				employer.getPassword().isBlank() ||
-				employer.getWebSite().isBlank()) 
-		{
-			return new ErrorResult("Tüm alanları doldurun");
-			
-		}
-		return new SuccessResult();
+
+	@Override
+	public boolean existsEmployerByEmail(String email) {
+		return this.employerDao.existsEmployerByEmail(email);
 	}
-	
-	
-	private Result CheckIfTheEmailIsRegistered(Employer employer) {
-		if(employerDao.findAllByEmail(employer.getEmail()).stream().count() != 0) {
-			return new ErrorResult("'" + employer.getEmail() + "'" +" adresiyle daha önce hesap açılmış");
-		}
-		return new SuccessResult();
-	}
-	
-	private Result isRealEmail(Employer employer) {
-		 String regex = "^(.+)@(.+)$";
-	     Pattern pattern = Pattern.compile(regex);
-	     Matcher matcher = pattern.matcher(employer.getEmail());
-	     if(!matcher.matches()) {
-	    	 return new ErrorResult("Hatalı Email adresi girdiniz");
-	     }
-	     return new SuccessResult();
-	     }
-	
-	private Result CheckIfTheTaxNumberIsRegistered(Employer employer) {
-		if(employerDao.findAllByTaxNumber(employer.getTaxNumber()).stream().count() != 0) {
-			return new ErrorResult("'" + employer.getTaxNumber() + "'" +" kimlik numarasıyla daha önce hesap açılmış. Tekrar hesap açamazsınız.");
-		}
-		return new SuccessResult();
-	}
-	
-	private Result NationalityIdValidation(Employer employer) {
-		if(!TaxNumberValidation.isRealPerson(employer.getTaxNumber())) {
-			return new ErrorResult("Vergi numarası doğrulanamadı");
-		}
-		return new SuccessResult();
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }
