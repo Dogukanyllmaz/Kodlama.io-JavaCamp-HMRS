@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import kodlamaio.hmrs.business.abstracts.EmailVertificationService;
 import kodlamaio.hmrs.business.abstracts.EmployerService;
 import kodlamaio.hmrs.business.abstracts.UserService;
-import kodlamaio.hmrs.core.business.BusinessRules;
+import kodlamaio.hmrs.core.utilities.tools.BusinessRules;
 import kodlamaio.hmrs.core.business.validation.TaxNumberValidation;
 import kodlamaio.hmrs.core.utilities.results.DataResult;
 import kodlamaio.hmrs.core.utilities.results.ErrorResult;
@@ -65,8 +65,8 @@ public class EmployerManager implements EmployerService{
 	}
 	
 	@Override
-	public Result delete(Employer entity) {
-		this.employerDao.delete(entity);
+	public Result delete(int id) {
+		this.employerDao.deleteById(id);
 		return new SuccessResult("Silindi");
 	}
 	

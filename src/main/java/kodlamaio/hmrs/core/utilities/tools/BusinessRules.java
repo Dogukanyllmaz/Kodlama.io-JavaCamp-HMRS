@@ -1,4 +1,4 @@
-package kodlamaio.hmrs.core.business;
+package kodlamaio.hmrs.core.utilities.tools;
 
 import kodlamaio.hmrs.core.utilities.results.Result;
 

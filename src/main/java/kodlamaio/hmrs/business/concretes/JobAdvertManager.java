@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kodlamaio.hmrs.business.abstracts.JobAdvertService;
-import kodlamaio.hmrs.core.business.BusinessRules;
+import kodlamaio.hmrs.core.utilities.tools.BusinessRules;
 import kodlamaio.hmrs.core.utilities.results.DataResult;
 import kodlamaio.hmrs.core.utilities.results.ErrorResult;
 import kodlamaio.hmrs.core.utilities.results.Result;
@@ -46,7 +46,17 @@ public class JobAdvertManager implements JobAdvertService{
 		return new SuccessResult("Yayından kaldırıldı");
 		
 	}
-	
+/*
+	@Override
+	public DataResult<JobAdvert> getByPositionName(String positionName) {
+		return new SuccessDataResult<JobAdvert>(this.jobAdvertDao.getByPositionName(positionName),"Data listelendi");
+	}
+
+	@Override
+	public DataResult<JobAdvert> getByCityName(String cityName) {
+		return new SuccessDataResult<JobAdvert>(this.jobAdvertDao.getByCityName(cityName),"Data listelendi");
+	}
+*/
 	@Override
 	public DataResult<List<JobAdvert>> getAll() {
 		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.findAll(),"İlanlar Listlendi");
@@ -71,13 +81,12 @@ public class JobAdvertManager implements JobAdvertService{
 	public DataResult<List<JobAdvert>> getByEmployer_UserId(int userId) {
 		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getByEmployer_UserId(userId),"Firmanın İlanları Listelendi");
 	}
-	/*
+/*
 	@Override
-	public DataResult<List<JobAdvert>> getByPosition_Id(int positionId) {
-		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getByPosition_Id(positionId));
+	public DataResult<List<JobAdvert>> getByPosition_PositionId(int positionId) {
+		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getByPosition_PositionId(positionId));
 	}
 	*/
-	
 	//**********************Business Rules***************************
 	private Result checkIfInfoIsNull(JobAdvert jobAdvert) {
 		if (jobAdvert.getDescription().isBlank()) {

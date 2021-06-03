@@ -1,9 +1,11 @@
 package kodlamaio.hmrs.entities.concretes;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -36,6 +38,8 @@ public class Employee extends User{
 	
 	@Column(name = "phone_number", nullable = false)
 	private String phoneNumber;
-	
+
+	@OneToMany(mappedBy = "user")
+	private List<Cv> cv;
 
 }

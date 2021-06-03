@@ -36,8 +36,8 @@ public class CityManager implements CityService{
 	}
 
 	@Override
-	public Result delete(City entity) {
-		this.cityDao.delete(entity);
+	public Result delete(int id) {
+		this.cityDao.deleteById(id);
 		return new SuccessResult("Şehir kaldırıldı");
 	}
 

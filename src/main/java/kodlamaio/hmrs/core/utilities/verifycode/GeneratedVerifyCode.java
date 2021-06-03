@@ -1,4 +1,4 @@
-package kodlamaio.hmrs.core.verifycode;
+package kodlamaio.hmrs.core.utilities.verifycode;
 
 import java.util.Random;
 

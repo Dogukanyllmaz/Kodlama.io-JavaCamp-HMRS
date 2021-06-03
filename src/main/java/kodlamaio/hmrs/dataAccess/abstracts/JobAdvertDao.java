@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import kodlamaio.hmrs.entities.concretes.JobAdvert;
+import org.springframework.data.jpa.repository.Query;
 
 public interface JobAdvertDao extends JpaRepository<JobAdvert, Integer>{
 	
@@ -11,8 +12,15 @@ public interface JobAdvertDao extends JpaRepository<JobAdvert, Integer>{
 	List<JobAdvert> getByActivityStatusIsTrueOrderByAdvertDateAsc();
 	List<JobAdvert> getByActivityStatusIsTrueOrderByAdvertDateDesc();
 	List<JobAdvert> getByEmployer_UserId(int userId);
-	
-	//Querysi tamamlanmadı denemelere devam
-	//List<JobAdvert> getByPosition_Id(int positionId);
 
+
+/*
+	JobAdvert getByPositionName(String positionName);
+
+	JobAdvert getByCityName(String cityName);
+
+	//Querysi tamamlanmadı denemelere devam
+	@Query("From JobAdvert where position.positionId =: positionId")
+	List<JobAdvert> getByPosition_PositionId(int positionId);
+*/
 }

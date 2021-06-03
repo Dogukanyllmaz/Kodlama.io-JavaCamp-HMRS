@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import kodlamaio.hmrs.business.abstracts.SystemEmployeeService;
 import kodlamaio.hmrs.business.abstracts.UserService;
-import kodlamaio.hmrs.core.business.BusinessRules;
+import kodlamaio.hmrs.core.utilities.tools.BusinessRules;
 import kodlamaio.hmrs.core.utilities.results.DataResult;
 import kodlamaio.hmrs.core.utilities.results.ErrorResult;
 import kodlamaio.hmrs.core.utilities.results.Result;
@@ -52,8 +52,8 @@ public class SystemEmployeeManager implements SystemEmployeeService{
 	}
 
 	@Override
-	public Result delete(SystemEmployee entity) {
-		this.systemEmployeeDao.delete(entity);
+	public Result delete(int id) {
+		this.systemEmployeeDao.deleteById(id);
 		return new SuccessResult("Çalışan silindi(system)");
 	}
 

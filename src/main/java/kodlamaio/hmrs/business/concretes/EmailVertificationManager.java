@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import com.sun.net.httpserver.Authenticator.Result;
 
 import kodlamaio.hmrs.business.abstracts.EmailVertificationService;
-import kodlamaio.hmrs.core.verifycode.GeneratedVerifyCode;
+import kodlamaio.hmrs.core.utilities.verifycode.GeneratedVerifyCode;
 import kodlamaio.hmrs.dataAccess.abstracts.EmailVertificationDao;
 import kodlamaio.hmrs.entities.concretes.EmailVertification;
 

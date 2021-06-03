@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kodlamaio.hmrs.business.abstracts.PositionService;
-import kodlamaio.hmrs.core.business.BusinessRules;
+import kodlamaio.hmrs.core.utilities.tools.BusinessRules;
 import kodlamaio.hmrs.core.utilities.results.DataResult;
 import kodlamaio.hmrs.core.utilities.results.ErrorResult;
 import kodlamaio.hmrs.core.utilities.results.Result;
@@ -46,8 +46,8 @@ public class PositionManager implements PositionService{
 	}
 
 	@Override
-	public Result delete(Position entity) {
-		this.positionDao.delete(entity);
+	public Result delete(int id) {
+		this.positionDao.deleteById(id);
 		return new SuccessResult("Posizyon Silindi");
 	}
 
